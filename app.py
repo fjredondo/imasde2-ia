@@ -1,7 +1,7 @@
 import streamlit as st
 import os
 from langchain_community.document_loaders import PDFPlumberLoader
-from langchain.text_splitters import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 from langchain_ollama import OllamaEmbeddings
 from langchain_core.prompts import ChatPromptTemplate
@@ -26,9 +26,9 @@ db_directory = 'vectordb'
 # Asegurar que el directorio de la base de datos existe
 os.makedirs(db_directory, exist_ok=True)
 
-embeddings = OllamaEmbeddings(model="deepseek-r1:14b")
+embeddings = OllamaEmbeddings(model="deepseek-qwen:latest")
 vector_store = Chroma(persist_directory=db_directory, embedding_function=embeddings)
-model = OllamaLLM(model="deepseek-r1:14b", temperature=0.0, max_tokens=512)
+model = OllamaLLM(model="deepseek-qwen:latest", temperature=0.1)
 
 def upload_pdf(file):
     with open(pdfs_directory + file.name, "wb") as f:
